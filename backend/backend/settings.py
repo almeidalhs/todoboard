@@ -142,7 +142,7 @@ CORS_ALLOW_HEADERS = [
     'content-type',
 ]
 CORS_ALLOWED_ORIGINS = [
-    "https://todoboard-one.vercel.app/",
+    "https://todoboard-one.vercel.app",
 ]
 
 REST_FRAMEWORK = {
