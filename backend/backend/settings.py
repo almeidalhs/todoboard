@@ -135,13 +135,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = [
     'authorization',
     'content-type',
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "https://todoboard-backend-1zh3dle1v-huashanlis-projects.vercel.app",
 ]
 
 REST_FRAMEWORK = {
