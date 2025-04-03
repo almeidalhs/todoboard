@@ -21,6 +21,7 @@ class TodoAPITests(APITestCase):
         # interface URL
         self.create_url = reverse('todo-list-create')
 
+
     def test_create_todo_authenticated(self):
         """
         test authenticated user can create Todo
@@ -46,3 +47,23 @@ class TodoAPITests(APITestCase):
         self.assertIn('id', response.data)
         self.assertEqual(response.data['title'], data['title'])
         self.assertEqual(response.data['completed'], data['completed'])
+
+
+    def test_complete_todo_authenticated(self):
+        """
+        test authenticated user can complete Todo
+        """
+        todo = Todo.objects.create(
+            title="Original Todo",
+            memo="Original description",
+            completed=False,
+            user=self.user
+        )
+        complete_url = reverse('todo-complete', kwargs={'pk': todo.id})
+        response = self.client.patch(complete_url)
+
+        # check http status
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # check db records
+        self.assertTrue(Todo.objects.get(id = todo.id).completed, True)
