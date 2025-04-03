@@ -67,3 +67,29 @@ class TodoAPITests(APITestCase):
 
         # check db records
         self.assertTrue(Todo.objects.get(id = todo.id).completed, True)
+
+    def test_get_list_authenticated(self):
+        """
+        authenticated user can check Todo list
+        """
+        todos = [
+            Todo.objects.create(
+                title=f"Todo {i}",
+                memo=f"Description {i}",
+                completed=(i % 2 == 0),
+                user=self.user
+            ) for i in range(1, 6)
+        ]
+        response = self.client.get(self.create_url)
+
+        # check http status
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(len(response.data), 5)
+
+        # check data structure and content
+        first_item = response.data[0]
+        self.assertIn('id', first_item)
+        self.assertIn('title', first_item)
+        self.assertIn('completed', first_item)
+        self.assertIn('created_at', first_item)
