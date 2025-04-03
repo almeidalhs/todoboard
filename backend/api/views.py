@@ -78,3 +78,27 @@ def login(request):
             except Token.DoesNotExist:
                 token = Token.objects.create(user=user)
             return JsonResponse({'token': token.key}, status=201)
+
+
+@csrf_exempt
+def logout(request):
+    if request.method == 'POST':
+        # 检查认证头
+        auth_header = request.headers.get('Authorization', '')
+        if not auth_header.startswith('Token '):
+            return JsonResponse({'error': 'Missing or invalid Authorization header'}, status=401)
+
+        # 提取 Token
+        token_key = auth_header.split(' ')[1].strip()
+        if not token_key:
+            return JsonResponse({'error': 'Invalid token format'}, status=401)
+
+        try:
+            # 删除 Token
+            token = Token.objects.get(key=token_key)
+            # token.delete()
+            return JsonResponse({'message': 'Successfully logged out'}, status=200)
+        except Token.DoesNotExist:
+            return JsonResponse({'error': 'Invalid token'}, status=401)
+    else:
+        return JsonResponse({'error': 'Only POST method is allowed'}, status=405)
