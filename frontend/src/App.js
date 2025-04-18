@@ -104,7 +104,7 @@ function App() {
       </div>
 
       <footer className="text-center text-lg-start bg-light text-muted mt-4">
-        <div className="text-center p-4">© Copyright
+        <div className="text-center p-4">© Copyright kkkkkkkkkkk
         - <a target="_blank" className="text-reset fw-bold text-decoration-none" href="https://twitter.com/greglim81">Greg Lim</a>
         - <a target="_blank" className="text-reset fw-bold text-decoration-none"
         href="https://twitter.com/danielgarax">Daniel Correa</a>
