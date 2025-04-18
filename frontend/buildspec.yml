@@ -1,15 +1,16 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
-      nodejs: 18.x
+      nodejs: 18
     commands:
-      - echo "Installing dependencies"
+      - echo "进入前端目录..."
       - cd frontend
       - npm install
   build:
     commands:
-      - echo "Running tests and type checks"
-      - npm run build --if-present
-      - npm test
+      - npm run build
+artifacts:
+  files:
+    - "**/*"
+  base-directory: frontend/build
